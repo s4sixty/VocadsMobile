@@ -1,28 +1,63 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, StatusBar, Dimensions} from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, Button, Image, Dimensions, TouchableOpacity} from 'react-native';
 import { TabView, SceneMap , TabBar } from 'react-native-tab-view';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faMicrophoneAlt, faPlug, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { Badge } from 'react-native-paper';
 
-const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: '#ff4081' }]}/>
-);
 
 const SecondRoute = () => (
-  <View style={styles.second} />
+  <View style={[styles.scene, styles.second]}>
+  </View>
 );
 
 
 export default class Rents extends React.Component {
-    state = {
+    constructor(props){
+        super(props)
+    this.state = {
         index: 0,
         routes: [
           { key: 'upcoming', title: 'Upcoming' },
           { key: 'past', title: 'Past' },
         ],
       };
-      renderTabBar = props => <TabBar {...props} 
+    }
+    renderTabBar = props => <TabBar {...props} 
       indicatorStyle={{ backgroundColor: 'white' }}
+      tabStyle={{marginLeft:10}}
       style={{ backgroundColor: '#f1c40f', marginLeft: 5, marginRight: 5 }}/>;
     render() {
+        var FirstRoute;
+        FirstRoute = () => (
+            <View style={styles.first}>
+              <View style={styles.scene}>
+                  <View>
+                      <Image source={require('../../img/clio4.png')} style={styles.ImgClio} />
+                  </View>
+                  <View>
+                      <View style={{flexDirection:'row'}}>
+                          <Text style={{fontWeight:'bold',textAlign: 'center', marginTop:20, marginLeft:10, color:'black'}}>Renault CLIO DEVKIT</Text>
+                          <FontAwesomeIcon icon={faPlug} size="16" style={{textAlign: 'right', marginTop:20, marginLeft:70,}}/><Text style={{textAlign: 'right', marginTop:20, color:'black'}}> 46%</Text>
+                      </View>
+                      <Text style={{textAlign: 'left', color:'black',marginLeft:30}}>End:</Text>
+                      <View>
+                          <TouchableOpacity style={{flexDirection:'row'}}>
+                              <Text  style={{textAlign: 'right', marginLeft:160,color:'black'}}>More Details </Text><FontAwesomeIcon icon={faChevronRight} size="10" style={{color:'#f1c40f', textAlign: 'right',marginTop:5}}/>
+                          </TouchableOpacity>
+                      </View>
+                  </View>
+              </View>
+              <View>
+                  <TouchableOpacity style={{backgroundColor:'#f1c40f',alignItems:'center',
+                   padding:10,borderTopLeftRadius:0,borderTopRightRadius:0, 
+                   borderBottomLeftRadius:6, borderBottomRightRadius:6 }}
+                   onPress={() => this.props.navigation.navigate('Voice')}>
+                      <FontAwesomeIcon icon={faMicrophoneAlt} size={32} color="white" />
+                  </TouchableOpacity>
+              </View>
+            </View>
+        );
         return (
             <TabView
             navigationState={this.state}
@@ -31,7 +66,7 @@ export default class Rents extends React.Component {
               past: SecondRoute,
             })}
             renderTabBar={this.renderTabBar}
-            style={styles.scene}
+            style={{backgroundColor: '#ecf0f1',marginTop:10}}
             onIndexChange={index => this.setState({ index })}
             initialLayout={{ width: Dimensions.get('window').width }}
           >
@@ -41,17 +76,29 @@ export default class Rents extends React.Component {
 }
 const styles = StyleSheet.create({
     first:{
-        backgroundColor: '#ff4081' 
+        backgroundColor: '#FFF',
+        borderRadius: 6,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,  
+        elevation: 5,
+        marginLeft:6,
+        marginRight:6,
+        marginTop:8,
+    },
+    ImgClio: {
+        width:120,
+        height:120,
+        resizeMode:'contain',
+        marginLeft:10
     },
     second:{
-        backgroundColor: '#673ab7'
+        backgroundColor: '#ecf0f1'
     },
     scene: {
-        flex:1,
-        marginTop:10,
-        marginRight:6,
-        marginLeft:6
-    },
+        flexDirection:'row',
+   },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -66,27 +113,5 @@ const styles = StyleSheet.create({
     ImgBack: {
         width: 300,
         height: 300
-    },
-    title: {
-        color: '#FFF',
-        marginTop: 5,
-        width: 160,
-        textAlign: 'center',
-        fontSize: 18,
-        opacity: 0.9
-    },
-    buttonContainer: {
-        backgroundColor: '#2980b9',
-        padding:15,
-        marginBottom:5
-    },
-    buttonSubscribe:{
-        marginTop:5,
-        backgroundColor: '#c0392b',
-        padding: 15
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: '#ecf0f1'
     }
 });

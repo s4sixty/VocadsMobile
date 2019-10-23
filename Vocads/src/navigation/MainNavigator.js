@@ -1,14 +1,19 @@
 import {
     createBottomTabNavigator,
     createAppContainer,
-    createStackNavigator
+    createStackNavigator,
+    createDrawerNavigator,
+    DrawerActions,
+    BottomTabBar,
+    DrawerNavigatorConfig
 } from 'react-navigation';
 import React from 'react';
 import {
     Easing,
     Animated,
     View, 
-    Text
+    Text,
+    TouchableOpacity
 } from 'react-native';
 import Booking from'../components/TabContent/Booking'
 import Help from'../components/TabContent/Help'
@@ -26,6 +31,21 @@ class LogoHeader extends React.Component {
             </View>
         );
     }
+}
+class ButtonDrawer extends React.Component {
+    
+    onButtonPress = () => {
+        startMainTab();
+      }
+      render(){
+          return(
+            <View style ={{ flex:1, alignItems:'left'}}>
+                <TouchableOpacity onPress={this.startMainTab}>
+                    <FontAwesomeIcon icon={faBars} />
+                </TouchableOpacity>
+            </View>
+          );
+      }
 }
 const customTabs = ({ navigation }) => ({
     tabBarIcon: ({ focused, horizontal, tintColor }) => {
@@ -94,7 +114,7 @@ const BookingStackNavigator = createStackNavigator({
         return ({
     gesturesEnabled: true,
     transitionStyle: 'inverted',
-    headerLeft: <FontAwesomeIcon icon={faBars}/>,
+    headerLeft: <ButtonDrawer/>,
     headerTitle: <LogoHeader/>,
     headerStyle: {
         backgroundColor: '#f1c40f',
@@ -139,32 +159,42 @@ const AccountStackNavigator = createStackNavigator({
     })
     }
 })
+const TabBarComponent = props => <BottomTabBar {...props} />;
+
 const UserTabNavigator = createBottomTabNavigator({
-    Reserver: {
+    Booking: {
         screen : BookingStackNavigator,
         navigationOptions:{
             tabBarIcon: <FontAwesomeIcon icon={faSearch} size={20}/>
         }
     },
-    'Mes Locations': { 
+    'My Rents': { 
         screen : RentsStackNavigator,
         navigationOptions:{
             tabBarIcon: <FontAwesomeIcon icon={faKey} size={20}/>
         }
     
     },
-    Aide: {
+    Help: {
         screen : HelpStackNavigator,
         navigationOptions:{
             tabBarIcon: <FontAwesomeIcon icon={faQuestion} size={20}/>
         }
     },
-    'Mon Compte': {
+    'My Account': {
         screen : AccountStackNavigator,
         navigationOptions:{
             tabBarIcon: <FontAwesomeIcon icon={faUser} size={20}/>
         }
     }
+},{
+    tabBarOptions: {
+        activeTintColor: '#f1c40f',
+       /* style: {
+          borderBottomColor : '#f1c40f',
+          borderBottomWidth:3
+        },*/
+      }
 })
 
 export default createAppContainer(UserTabNavigator);

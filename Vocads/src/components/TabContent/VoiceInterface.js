@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, KeyboardAvoidingView, StatusBar} from 'react-native';
+import { StyleSheet, View, Text, KeyboardAvoidingView, StatusBar, Image, TouchableOpacity} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faMicrophoneAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default class VoiceInterface extends React.Component {
     render() {
@@ -9,7 +11,10 @@ export default class VoiceInterface extends React.Component {
                 <View style={styles.container}>
                     <StatusBar backgroundColor="#f1c40f"
                                 barStyle="light-content"/>
-                   <Text style={styles.title}>Voice Interface</Text>
+                    {/*Replace by the real image <Image source={{uri :''}} style={styles.ImgBack}/>*/}
+                    <TouchableOpacity style={styles.buttonContainer}>
+                        <FontAwesomeIcon icon={faMicrophoneAlt} size={128} style={styles.iconContainer}/>
+                    </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
         );
@@ -18,7 +23,7 @@ export default class VoiceInterface extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#2c3e50',
+        backgroundColor: '#ecf0f1',
         alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'center'
@@ -27,6 +32,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'center'
+    },
+    iconContainer:{
+        color:'#FFF'
     },
     ImgBack: {
         width: 300,
@@ -41,9 +49,10 @@ const styles = StyleSheet.create({
         opacity: 0.9
     },
     buttonContainer: {
-        backgroundColor: '#2980b9',
+        backgroundColor: '#ffda00',
         padding:15,
-        marginBottom:5
+        marginBottom:5,
+        borderRadius:200
     },
     buttonSubscribe:{
         marginTop:5,

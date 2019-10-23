@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, KeyboardAvoidingView, StatusBar} from 'react-na
 
 class Booking extends React.Component {
     render() {
-
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <View style={styles.container}>
@@ -18,7 +17,7 @@ class Booking extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#2c3e50',
+        backgroundColor: '#ecf0f1',
         alignItems: 'center',
         flexGrow: 1,
         justifyContent: 'center'
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
         height: 300
     },
     title: {
-        color: '#FFF',
+        color: '#444',
         marginTop: 5,
         width: 160,
         textAlign: 'center',
