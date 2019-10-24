@@ -13,7 +13,8 @@ import {
     Animated,
     View, 
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Platform
 } from 'react-native';
 import Booking from'../components/TabContent/Booking'
 import Help from'../components/TabContent/Help'
@@ -22,7 +23,7 @@ import Rents from'../components/TabContent/Rents'
 import VoiceInterface from'../components/TabContent/VoiceInterface'
 import { faQuestion, faKey, faUser, faBars, faSearch } from'@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-
+import { Icon, withBadge, Badge, } from'react-native-elements';
 class LogoHeader extends React.Component {
     render() {
         return (
@@ -39,7 +40,7 @@ class ButtonDrawer extends React.Component {
       }
       render(){
           return(
-            <View style ={{ flex:1, alignItems:'left'}}>
+            <View style ={{ flex:1, alignItems:'flex-start'}}>
                 <TouchableOpacity onPress={this.startMainTab}>
                     <FontAwesomeIcon icon={faBars} />
                 </TouchableOpacity>
@@ -161,6 +162,8 @@ const AccountStackNavigator = createStackNavigator({
 })
 const TabBarComponent = props => <BottomTabBar {...props} />;
 
+const BadgedIcon = withBadge(1)(Icon)
+
 const UserTabNavigator = createBottomTabNavigator({
     Booking: {
         screen : BookingStackNavigator,
@@ -171,7 +174,7 @@ const UserTabNavigator = createBottomTabNavigator({
     'My Rents': { 
         screen : RentsStackNavigator,
         navigationOptions:{
-            tabBarIcon: <FontAwesomeIcon icon={faKey} size={20}/>
+            tabBarIcon: <BadgedIcon type="ionicon" name="ios-key" />
         }
     
     },

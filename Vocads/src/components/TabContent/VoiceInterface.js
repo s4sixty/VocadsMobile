@@ -2,17 +2,29 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, KeyboardAvoidingView, StatusBar, Image, TouchableOpacity} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMicrophoneAlt } from '@fortawesome/free-solid-svg-icons';
-
+import Permissions from 'react-native-permissions';
 export default class VoiceInterface extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            microphone : null
+        }
+    }
+     _requestPermission = async() => {
+       await Permissions.request('microphone').then(response => {
+            // Returns once the user has chosen to 'allow' or to 'not allow' access
+            // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+            this.setState({microphone: response});
+          })
+    }
     render() {
-
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <View style={styles.container}>
                     <StatusBar backgroundColor="#f1c40f"
                                 barStyle="light-content"/>
                     {/*Replace by the real image <Image source={{uri :''}} style={styles.ImgBack}/>*/}
-                    <TouchableOpacity style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={this._requestPermission}>
                         <FontAwesomeIcon icon={faMicrophoneAlt} size={128} style={styles.iconContainer}/>
                     </TouchableOpacity>
                 </View>

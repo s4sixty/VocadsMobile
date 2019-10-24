@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, KeyboardAvoidingView, Button, Image, Dimensions
 import { TabView, SceneMap , TabBar } from 'react-native-tab-view';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faMicrophoneAlt, faPlug, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { Badge } from 'react-native-paper';
+import { Icon, withBadge, Badge } from 'react-native-elements';
 
 
 const SecondRoute = () => (
@@ -12,20 +12,40 @@ const SecondRoute = () => (
 );
 
 
+const BadgedIcon = withBadge(1)(Icon)
+
 export default class Rents extends React.Component {
     constructor(props){
         super(props)
     this.state = {
         index: 0,
+        read:0,
         routes: [
           { key: 'upcoming', title: 'Upcoming' },
-          { key: 'past', title: 'Past' },
+          { key: 'past', title: `Past` },
         ],
       };
     }
+    _renderBadge = ({route}) => {
+        if (route.title === 'Past') {
+            return (
+             <View style={{marginRight:'60%',marginTop:10}}>
+                {this.state.index === 0  && (
+                <BadgedIcon/>)}
+            </View>
+            );
+        }
+        return null;
+    };
+    /*renderLabel=({ route, focused, color }) => (
+        <Text style={{ color, margin: 8 }}>
+          {route.title}
+        </Text>
+      )*/
     renderTabBar = props => <TabBar {...props} 
       indicatorStyle={{ backgroundColor: 'white' }}
-      tabStyle={{marginLeft:10}}
+      renderBadge={this._renderBadge}
+      //renderLabel={this.renderLabel}
       style={{ backgroundColor: '#f1c40f', marginLeft: 5, marginRight: 5 }}/>;
     render() {
         var FirstRoute;
@@ -40,7 +60,7 @@ export default class Rents extends React.Component {
                           <Text style={{fontWeight:'bold',textAlign: 'center', marginTop:20, marginLeft:10, color:'black'}}>Renault CLIO DEVKIT</Text>
                           <FontAwesomeIcon icon={faPlug} size="16" style={{textAlign: 'right', marginTop:20, marginLeft:70,}}/><Text style={{textAlign: 'right', marginTop:20, color:'black'}}> 46%</Text>
                       </View>
-                      <Text style={{textAlign: 'left', color:'black',marginLeft:30}}>End:</Text>
+                      <Text style={{textAlign: 'left', color:'black',marginLeft:30}}>End: February 15,2019 at 10:30 AM</Text>
                       <View>
                           <TouchableOpacity style={{flexDirection:'row'}}>
                               <Text  style={{textAlign: 'right', marginLeft:160,color:'black'}}>More Details </Text><FontAwesomeIcon icon={faChevronRight} size="10" style={{color:'#f1c40f', textAlign: 'right',marginTop:5}}/>
